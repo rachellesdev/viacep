@@ -4,9 +4,10 @@ import { useState } from 'react'
 const BuscaCep = () => {
 
   const [cepInput, setCepInput] = useState('01001000')
+  const [endereco, setEndereco] = useState()
 
   function handleSetInput(target) {
-    setValorInput(target.value)
+    setCepInput(target.value)
   }
 
   async function handleBuscaCep() {
@@ -19,13 +20,12 @@ const BuscaCep = () => {
     const resposta = {
       bairro: json.bairro,
       cep: json.cep,
-      complemento: json.complemento,
       localidade: json.localidade,
       logradouro: json.logradouro,
       uf: json.uf
     }
     console.log(resposta);
-    // setEndereco(resposta)
+    setEndereco(resposta)
     setCepInput('')
 
   }
@@ -40,6 +40,11 @@ const BuscaCep = () => {
           onChange={({ target }) => handleSetInput(target)}
         />
       <button onClick={handleBuscaCep}>Enviar</button>
+
+        <section>
+            <p>{!! endereco && endereco.bairro}</p>
+        </section>
+
     </div>
   )
 }
